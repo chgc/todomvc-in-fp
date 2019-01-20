@@ -17,16 +17,16 @@ export class AppComponent {
   }
 
   remove(todo) {
-    this.todos = removeTodo(todo.id)(this.todos);
+    this.todos = removeTodo(todo.id, this.todos);
   }
 
   toggleComplete(todo) {
     let updateTodoItem = { ...todo, isCompleted: !todo.isCompleted };
-    this.todos = updateTodo(updateTodoItem)(this.todos);
+    this.todos = updateTodo(updateTodoItem, this.todos);
   }
 
   update(todo: Todo, updateValue) {
     let updateTodoItem = { ...todo, item: updateValue, isEditing: false };
-    this.todos = updateTodo(updateTodoItem)(this.todos);
+    this.todos = updateTodo(updateTodoItem, this.todos);
   }
 }

@@ -31,11 +31,11 @@ const createNewItem = useWith(newTodo, [identity, getNewId]);
 // (item, todos) -> todos
 export const createNewTodo = converge(addTodo, [createNewItem, flip(identity)]);
 
-const findAndReplace = curry((newTodo, oldTodo) =>
-  oldTodo.id === newTodo.id ? newTodo : oldTodo
+const findAndReplace = curry((newTodoItem, oldTodo) =>
+  oldTodo.id === newTodoItem.id ? newTodoItem : oldTodo
 );
 
-//const updateTodo = (todo, todos) => todos.map(x => findAndReplace(todo, x));
+// const updateTodo = (todo, todos) => todos.map(x => findAndReplace(todo, x));
 // (item, todos) -> todos;
 export const updateTodo = useWith(map, [findAndReplace, identity]);
 

@@ -15,7 +15,7 @@
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <li
-        *ngFor="let todo of todos"
+        *ngFor="let todo of todos$ | async"
         [class.completed]="todo.isCompleted"
         [class.editing]="todo.isEditing"
       >
@@ -42,7 +42,7 @@
   <footer class="footer">
     <!-- This should be `0 items left` by default -->
     <span class="todo-count"
-      ><strong>{{ itemLeft }}</strong> item left</span
+      ><strong>{{ (itemLeft$ | async).length }}</strong> item left</span
     >
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">

@@ -27,7 +27,7 @@ export interface TodoStateModel {
 })
 export class TodoState {
   @Selector()
-  public static getState(state: TodoStateModel) {
+  static getState(state: TodoStateModel) {
     return state;
   }
 
@@ -42,53 +42,43 @@ export class TodoState {
   }
 
   @Action(TodoAction)
-  public add(ctx: StateContext<TodoStateModel>, { payload }: TodoAction) {
-    const stateModel = ctx.getState();
+  add(ctx: StateContext<TodoStateModel>, { payload }: TodoAction) {
     ctx.setState({
-      ...stateModel,
-      items: createNewTodo(payload, stateModel.items)
+      items: createNewTodo(payload, ctx.getState().items)
     });
   }
 
   @Action(UpdateTodoAction)
-  public update(
+  update(
     ctx: StateContext<TodoStateModel>,
     { payload }: UpdateTodoAction
   ) {
-    const stateModel = ctx.getState();
-    ctx.setState({
-      ...stateModel,
-      items: updateTodo(payload, stateModel.items)
+    ctx.patchState({
+      items: updateTodo(payload, ctx.getState().items)
     });
   }
 
   @Action(RemoveTodoAction)
-  public remove(
+  remove(
     ctx: StateContext<TodoStateModel>,
     { payload }: RemoveTodoAction
   ) {
-    const stateModel = ctx.getState();
-    ctx.setState({
-      ...stateModel,
-      items: removeTodo(payload.id, stateModel.items)
+    ctx.patchState({
+      items: removeTodo(payload.id, ctx.getState().items)
     });
   }
 
   @Action(CompleteAllAction)
-  public completeAll(ctx: StateContext<TodoStateModel>) {
-    const stateModel = ctx.getState();
-    ctx.setState({
-      ...stateModel,
-      items: completeAll(stateModel.items)
+  completeAll(ctx: StateContext<TodoStateModel>) {
+    ctx.patchState({
+      items: completeAll(ctx.getState().items)
     });
   }
 
   @Action(ClearCompleteAction)
-  public clearComplete(ctx: StateContext<TodoStateModel>) {
-    const stateModel = ctx.getState();
-    ctx.setState({
-      ...stateModel,
-      items: clearCompleted(stateModel.items)
+  clearComplete(ctx: StateContext<TodoStateModel>) {
+    ctx.patchState({
+      items: clearCompleted(ctx.getState().items)
     });
   }
 }

@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { Todo } from './models/todo';
-import { createNewTodo, removeTodo, updateTodo } from './services/todo-service';
+import {
+  createNewTodo,
+  removeTodo,
+  updateTodo,
+  clearCompleted,
+  completeAll
+} from './services/todo-service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +17,9 @@ export class AppComponent {
   title = 'todo-fp-style';
   todos: Todo[] = [];
 
+  get itemLeft() {
+    return this.todos.filter(x => !x.isCompleted).length;
+  }
   addTodo(newTodoInput) {
     this.todos = createNewTodo(newTodoInput.value, this.todos);
     newTodoInput.value = '';
@@ -28,5 +37,13 @@ export class AppComponent {
   update(todo: Todo, updateValue) {
     let updateTodoItem = { ...todo, item: updateValue, isEditing: false };
     this.todos = updateTodo(updateTodoItem, this.todos);
+  }
+
+  completeAll() {
+    this.todos = completeAll(this.todos);
+  }
+
+  clearComplete() {
+    this.todos = clearCompleted(this.todos);
   }
 }

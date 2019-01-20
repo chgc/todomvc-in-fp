@@ -7,7 +7,8 @@ import {
   identity,
   useWith,
   converge,
-  flip
+  flip,
+  assoc
 } from 'ramda';
 
 //const addTodo = (todo, todos) => [...todos, todo];
@@ -42,3 +43,7 @@ export const updateTodo = useWith(map, [findAndReplace, identity]);
 // export const removeTodo = id => reject(propEq('id', id));
 // (item, todos) -> todos
 export const removeTodo = useWith(reject, [propEq('id'), identity]);
+
+export const clearCompleted = reject(x => x.isCompleted);
+
+export const completeAll = map(assoc('isCompleted', true));

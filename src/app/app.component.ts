@@ -22,11 +22,11 @@ export class AppComponent {
 
   toggleComplete(todo) {
     let updateTodoItem = { ...todo, isCompleted: !todo.isCompleted };
-    this.todos = updateTodo(updateTodoItem)(this.todos);
+    this.todos = updateTodo(updateTodoItem, this.todos);
   }
 
   update(todo: Todo, updateValue) {
     let updateTodoItem = { ...todo, item: updateValue, isEditing: false };
-    this.todos = updateTodo(updateTodoItem)(this.todos);
+    this.todos = updateTodo(updateTodoItem, this.todos);
   }
 }
